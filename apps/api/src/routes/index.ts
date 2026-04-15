@@ -13,6 +13,7 @@ import { session } from "../middlewares/sessions";
 
 // Auth
 const authRouter = express.Router();
+authRouter.post("/signup/email", authValidation.emailSignUp, authController.emailSignUp);
 authRouter.post("/signin/email", authValidation.emailSignIn, authController.emailSignIn);
 authRouter.post("/signout", session, authController.signOut);
 authRouter.post("/refresh", authController.refreshToken);

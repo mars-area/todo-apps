@@ -8,6 +8,15 @@ const emailSignIn = {
   }).required()
 };
 
+const emailSignUp = {
+  body: Joi.object({
+    name: Joi.string().required(),
+    email: Joi.string().required(),
+    password: Joi.string().required()
+  }).required()
+};
+
 export default {
-  emailSignIn: validate(emailSignIn)
+  emailSignIn: validate(emailSignIn),
+  emailSignUp: validate(emailSignUp)
 };

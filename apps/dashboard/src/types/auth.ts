@@ -37,3 +37,9 @@ export interface IResetPasswordActionData {
   token: string;
   password: string;
 }
+
+export interface ISignupActionData {
+  name: string;
+  email: string;
+  password: string;
+}

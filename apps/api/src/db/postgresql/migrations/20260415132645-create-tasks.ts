@@ -24,14 +24,16 @@ export async function up(queryInterface: any, Sequelize: any) {
     },
     userId: {
       allowNull: false,
-      type: Sequelize.INTEGER(11),
+      field: "user_id",
       references: {
         model: "users",
         key: "id"
-      }
+      },
+      type: Sequelize.INTEGER(11),
     },
     dueDate: {
       allowNull: false,
+      field: "due_date",
       type: Sequelize.DATE
     },
     priority: {
@@ -52,7 +54,7 @@ export async function up(queryInterface: any, Sequelize: any) {
     },
     updatedAt: {
       allowNull: false,
-      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"),
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       field: "updated_at",
       type: Sequelize.DATE
     },

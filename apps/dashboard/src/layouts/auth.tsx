@@ -6,7 +6,7 @@ type AuthLayoutProps = {
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <div className="w-screen min-h-screen p-5 flex flex-col items-center justify-center">
+    <div className="w-screen min-h-screen  flex flex-col items-center justify-center">
       <div className="absolute top-4 right-4">
         <ModeToggle />
       </div>

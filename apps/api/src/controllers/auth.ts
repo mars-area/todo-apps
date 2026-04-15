@@ -3,6 +3,29 @@ import { authService, usersService } from "../services/index";
 import { catchAsync, generateRandomHexString, type ControllerRequestType } from "../utils/helpers";
 import { ErrorRes, SuccessRes } from "../utils/response";
 
+export const emailSignUp = catchAsync(async (req: Request, res: Response) => {
+  const { name, email, password } = req.body;
+
+  const user = await usersService.getUserDataByEmail(email);
+  if (user) {
+    return ErrorRes(res, {
+      error: "BAD_REQUEST",
+      message: "Email already in use"
+    });
+  }
+
+  const newUser = await usersService.createUser({ name, email, password });
+
+  return SuccessRes(res, {
+    success: "OK",
+    message: "Sign up successful",
+    data: {
+      name: newUser.name,
+      email: newUser.email,
+    }
+  });
+})
+
 export const emailSignIn = catchAsync(async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
@@ -74,19 +97,14 @@ export const refreshToken = catchAsync(async (req: ControllerRequestType, res: R
       message: "Missing refresh token"
     });
 
-  const refreshToken = await usersService.getUserToken(req.userId);
-  if (!refreshToken)
-    return ErrorRes(res, {
-      error: "UNAUTHORIZED",
-      message: "Invalid refresh token"
-    });
-  if (refreshToken !== token)
+  const user = await usersService.getUserByToken(token);
+  if (!user)
     return ErrorRes(res, {
       error: "UNAUTHORIZED",
       message: "Invalid refresh token"
     });
 
-  const accessToken = authService.signAccessToken({ userId: req.userId });
+  const accessToken = authService.signAccessToken({ userId: user.id });
 
   return SuccessRes(res, {
     success: "OK",
@@ -98,6 +116,7 @@ export const refreshToken = catchAsync(async (req: ControllerRequestType, res: R
 });
 
 export default {
+  emailSignUp,
   emailSignIn,
   signOut,
   refreshToken

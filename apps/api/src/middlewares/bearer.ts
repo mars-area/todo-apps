@@ -14,32 +14,14 @@ interface BearerRequest extends Request {
 
 const bearer = catchAsync(async (req: BearerRequest, res: Response, next: NextFunction | undefined) => {
   const bearerHeader = req.headers.authorization as string | undefined;
-  const appVersion = req.headers["x-app-version"] as string | undefined;
-  const appPlatform = req.headers["x-device-platform"] as string | undefined;
   const bearerToken = bearerHeader ? bearerHeader.split(" ")[1] : "";
 
-  if (!bearerToken || !appVersion || !appPlatform) {
+  if (!bearerToken) {
     return ErrorRes(res, { error: "UNAUTHORIZED", message: "Missing required headers." });
   }
 
   if (bearerToken !== config.bearer_token) {
     return ErrorRes(res, { error: "UNAUTHORIZED", message: "Invalid token." });
-  }
-
-  // Check app version
-  let isOutdated = false;
-  if (!appVersion) {
-    isOutdated = true;
-  } else {
-    switch (appPlatform?.toLowerCase()) {
-      case "admin-dashboard":
-        break;
-      default:
-        return ErrorRes(res, { error: "UNAUTHORIZED", message: "Invalid platform." });
-    }
-  }
-  if (isOutdated) {
-    return ErrorRes(res, { error: "UPGRADE_REQUIRED", message: "The app version is outdated." });
   }
 
   // valid ip
