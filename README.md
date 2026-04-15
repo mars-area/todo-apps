@@ -1,6 +1,5 @@
 # Working Time
-start 19.08
-end
+07.08 PM 15 April 2026 - 01.30 AM 16 April 2026
 
 # To run the project
 
