@@ -165,6 +165,10 @@ code {
   background: var(--code-bg);
 }
 
+button {
+  cursor: pointer;
+}
+
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: 'Geist Variable', sans-serif;

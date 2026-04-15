@@ -2,7 +2,16 @@ import axios, { type AxiosHeaders, type AxiosRequestConfig } from "axios";
 
 import { CONFIG } from "@/configs/app";
 
-import type { IForgotPasswordActionData, ILoginActionData, IResetPasswordActionData, ISignupActionData, IUserAccess } from "@/types/auth";
+import type {
+  IForgotPasswordActionData,
+  ILoginActionData,
+  IResetPasswordActionData,
+  ISignupActionData,
+  IUserAccess,
+  IQueryParams,
+  ITaskCreateData,
+  ITaskUpdateData,
+} from "@/types";
 import useAuthStore from "@/stores/auth";
 import { logoutAction, refreshTokenAction } from "@/hooks/actions/auth";
 
@@ -20,7 +29,7 @@ const instance = axios.create({
 });
 
 const instanceClient = () => {
-  instance.interceptors.request.use((config) => {
+  instance.interceptors.request.use(config => {
     const { token } = useAuthStore.getState();
     config.headers["x-access-token"] = token?.access;
     config.headers["x-refresh-token"] = token?.refresh;
@@ -28,10 +37,10 @@ const instanceClient = () => {
   });
 
   instance.interceptors.response.use(
-    async (response) => {
+    async response => {
       return response;
     },
-    async (error) => {
+    async error => {
       const originalRequest = error.config;
 
       const errorStatusCode = error.response?.status;
@@ -99,3 +108,13 @@ export const resetPasswordApi = (data: IResetPasswordActionData) => api.post("/a
 
 // users
 export const getUserDetailApi = (uid: string) => api.get(`/users/${uid}`);
+
+// tasks
+export const createTaskApi = (data: Omit<ITaskCreateData, "callback">) => api.post("/tasks", data);
+export const updateTaskApi = (data: Omit<ITaskUpdateData, "callback">) => {
+  const { id, ...body } = data;
+  return api.put(`/tasks/${id}`, body);
+};
+export const deleteTaskApi = (id: number) => api.delete(`/tasks/${id}`);
+export const getTasksApi = (params?: IQueryParams) => api.get("/tasks", { params });
+export const getTaskDetailApi = (id: number) => api.get(`/tasks/${id}`);

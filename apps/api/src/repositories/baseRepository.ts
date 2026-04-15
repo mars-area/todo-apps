@@ -6,7 +6,7 @@ export interface BaseRepository<T extends Model> {
   findAll: (options?: FindOptions<Attributes<T>>) => Promise<T[]>;
   create: (data: CreationAttributes<T>) => Promise<T>;
   update: (id: string | number, data: Partial<Attributes<T>>) => Promise<boolean>;
-  delete: (id: string | number) => Promise<boolean>;
+  delete: (id: string | number, userId: number) => Promise<boolean>;
 }
 
 export const createBaseRepository = <T extends Model>(model: ModelStatic<T>): BaseRepository<T> => ({
@@ -23,8 +23,8 @@ export const createBaseRepository = <T extends Model>(model: ModelStatic<T>): Ba
     return affectedCount > 0;
   },
 
-  delete: async id => {
-    const deletedCount = await model.update({ deleted: true }, { where: { id } as any });
-    return deletedCount[0] > 0;
+  delete: async (id, userId) => {
+    const affectedCount = await model.update({ deletedAt: new Date() }, { where: { id, userId } as any });
+    return affectedCount[0] > 0;
   }
 });

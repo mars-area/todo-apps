@@ -1,5 +1,15 @@
 import type { Request } from "express";
 
+export interface IQueryParams extends Record<string, unknown> {
+  page?: number;
+  limit?: number;
+  sort?: string;
+  order?: string;
+  search?: string;
+  dateStart?: string;
+  dateEnd?: string;
+}
+
 export function useQuery(req: Request) {
   const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
   const limit = req.query.limit ? Math.min(parseInt(req.query.limit as string, 10), 100) : 10;

@@ -1,5 +1,4 @@
 import { SidebarLeft } from "@/components/sidebar-left"
-import { SidebarRight } from "@/components/sidebar-right"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -44,7 +43,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
           {children}
         </div>
       </SidebarInset>
-      <SidebarRight />
     </SidebarProvider>
   );
 }

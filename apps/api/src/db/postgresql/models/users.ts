@@ -90,9 +90,9 @@ const UsersModel = (sequelize: Sequelize) => {
     }
   );
 
-  // (Users as unknown as UsersModel).associate = (models: { [key: string]: ModelStatic<Model> }) => {
-  //   Users.hasMany(models.Balances as ModelStatic<Model<object, object>>, { foreignKey: "userId", as: "balances" });
-  // };
+  (Users as unknown as UsersModel).associate = (models: { [key: string]: ModelStatic<Model> }) => {
+    Users.hasMany(models.Tasks as ModelStatic<Model<object, object>>, { foreignKey: "userId", as: "tasks" });
+  };
 
   return Users;
 };

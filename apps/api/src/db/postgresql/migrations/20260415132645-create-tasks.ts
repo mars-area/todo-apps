@@ -17,11 +17,6 @@ export async function up(queryInterface: any, Sequelize: any) {
       allowNull: false,
       type: Sequelize.TEXT
     },
-    completed: {
-      allowNull: false,
-      defaultValue: false,
-      type: Sequelize.BOOLEAN
-    },
     userId: {
       allowNull: false,
       field: "user_id",
@@ -64,6 +59,10 @@ export async function up(queryInterface: any, Sequelize: any) {
       type: Sequelize.DATE
     }
   });
+  await queryInterface.addIndex("tasks", ["userId"]);
+  await queryInterface.addIndex("tasks", ["dueDate"]);
+  await queryInterface.addIndex("tasks", ["priority"]);
+  await queryInterface.addIndex("tasks", ["status"]);
 }
 
 export async function down(queryInterface: any, _Sequelize: any) {
