@@ -1,0 +1,18 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    "lib": ["ES2016"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "allowImportingTsExtensions": false,
+    "emitDeclarationOnly": true,
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler"
+  },
+  "exclude": ["node_modules", "dist", "coverage", ".turbo/*"],
+  "include": ["src"]
+}
