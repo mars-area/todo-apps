@@ -13,7 +13,7 @@ DB_NAME=todo_db
 DB_USER=<your_database_user>
 DB_PASS=<your_database_password>
 ```
-2. create database using pgAdmin or other tools
+2. create database with name `todo_db` using pgAdmin, adminer, or other tools
 
 3. run the development workflow
 
@@ -27,10 +27,13 @@ npx sequelize-cli db:seed:all
 
 # run the project
 npm run dev
-
-# deployment
-# will be updated soon
 ```
+
+4. Login dengan email `user@test.com` dan password `password`. Atau register dengan email dan password sendiri.
+
+# Deployment
+will be updated soon
+
 # Asumsi yang digunakan
 - Aplikasi todo sederhana yang diakses oleh banyak user
 - User dapat login dan register
@@ -38,6 +41,7 @@ npm run dev
 
 # Keputusan Teknis
 - Menggunakan monorepo untuk mengelola frontend dan backend
+- Menggunakan Shadcn UI sebagai UI framework untuk frontend
 - Menggunakan tsx untuk running local development karena lebih cepat dan mudah untuk debugging
-
-
+- Menambahkan index pada tabel tasks untuk mempercepat pencarian task berdasarkan `userId`, `dueDate`, `priority`, dan `status`
+- Menambahkan pagination pada API `get tasks` untuk melimitasi jumlah task yang diambil
