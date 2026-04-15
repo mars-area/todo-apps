@@ -27,7 +27,6 @@ export const useAuthLogin = () => {
         userData: {
           name: response.data.data.name,
           email: response.data.data.email,
-          role: response.data.data.role
         },
         token: response.data.data.token
       });
@@ -45,18 +44,8 @@ export const useAuthSignup = () => {
     mutationFn: ({ data }: { data: ISignupActionData; callback?: () => void }) => {
       return signupApi(data);
     },
-    onSuccess(response, props) {
+    onSuccess(_response, props) {
       const { callback } = props;
-
-      setLoginDataAction({
-        loggedIn: true,
-        userData: {
-          name: response.data.data.name,
-          email: response.data.data.email,
-          role: response.data.data.role
-        },
-        token: response.data.data.token
-      });
 
       if (callback) callback();
     },

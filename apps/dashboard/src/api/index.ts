@@ -91,10 +91,7 @@ const api = instanceClient();
 
 // auth
 export const loginApi = (data: ILoginActionData) => api.post("/auth/signin/email", data);
-export const signupApi = (data: ISignupActionData) => api.post("/auth/signup/email", {
-  ...data,
-  password: data.password + CONFIG.saltPassword
-});
+export const signupApi = (data: ISignupActionData) => api.post("/auth/signup/email", data);
 export const logoutApi = () => api.post("/auth/signout");
 export const refreshTokenApi = () => api.post("/auth/refresh");
 export const forgotPasswordApi = (data: IForgotPasswordActionData) => api.post("/auth/forgot-password", data);

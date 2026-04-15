@@ -1,4 +1,4 @@
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -21,11 +21,14 @@ import { z } from "zod"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { loginSchema } from "@/zod/auth"
+import { useAuthLogin } from "@/hooks/api/use-auth"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { mutate: login, isPending } = useAuthLogin();
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -35,13 +38,17 @@ export function LoginForm({
   });
 
   function onSubmit(data: z.infer<typeof loginSchema>) {
-    console.log(data);
+    login({
+      data: data, callback: () => {
+        navigate("/dashboard");
+      }
+    });
   }
 
-  const { isSubmitting, isValid, isDirty } = form.formState;
+  const { isValid, isDirty } = form.formState;
   const filledFieldsCount = Object.values(form.getValues()).filter(Boolean).length;
 
-  const isSubmitDisabled = isSubmitting || !isValid || !isDirty || filledFieldsCount !== 2;
+  const isSubmitDisabled = isPending || !isValid || !isDirty || filledFieldsCount !== 2;
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -81,7 +88,7 @@ export function LoginForm({
                   </Field>
                 )}
               />
-              <Button disabled={isSubmitDisabled} type="submit">Login</Button>
+              <Button disabled={isSubmitDisabled} type="submit">{isPending ? "Logging in..." : "Login"}</Button>
               <FieldDescription className="px-6 text-center">
                 Don&apos;t have an account? <Link to="/register">Sign up</Link>
               </FieldDescription>

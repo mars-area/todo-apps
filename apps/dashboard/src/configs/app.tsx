@@ -9,7 +9,7 @@ type ConfigProps = {
 };
 
 export const CONFIG: ConfigProps = {
-  appName: import.meta.env.VITE_APP_APP_NAME || "[project-name]",
+  appName: import.meta.env.VITE_APP_APP_NAME || "Todo App",
   apiUrl: import.meta.env.VITE_APP_API_URL || "http://localhost:8080",
   apiVersion: import.meta.env.VITE_APP_VERSION || "1.0.0",
   apiBearer: import.meta.env.VITE_APP_API_BEARER || "token",

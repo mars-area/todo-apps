@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { randomBytes } from "crypto";
+import bcrypt from "bcryptjs";
 import config from "../configs/app";
 
 type AsyncMiddleware = (_req: Request, _res: Response, _next?: NextFunction) => Promise<Response | void>;
@@ -78,4 +79,8 @@ export const formatDate = (dateString: string) => {
   } as Intl.DateTimeFormatOptions
 
   return date.toLocaleString('en-US', options)
+}
+
+export const hash = (password: string) => {
+  return bcrypt.hashSync(password + config.salt, 10);
 }

@@ -20,6 +20,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { logoutAction } from "@/hooks/actions/auth"
 import { ChevronsUpDownIcon, SparklesIcon, BadgeCheckIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
 
 export function NavUser({
@@ -32,7 +33,9 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
-
+  async function logout() {
+    await logoutAction();
+  }
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -98,9 +101,8 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOutIcon
-              />
+            <DropdownMenuItem onClick={() => logout()}>
+              <LogOutIcon />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

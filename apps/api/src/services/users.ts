@@ -1,4 +1,5 @@
 import { type UsersRepository } from "../repositories/usersRepository";
+import { hash } from "../utils/helpers";
 
 // Define what the service needs to function
 interface UsersServiceDeps {
@@ -11,7 +12,7 @@ export const createUsersService = ({ usersRepo }: UsersServiceDeps) => {
       const newUser = await usersRepo.create({
         name: user.name,
         email: user.email,
-        password: user.password,
+        password: hash(user.password),
       });
       return newUser.get();
     },

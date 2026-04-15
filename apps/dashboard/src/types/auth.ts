@@ -9,8 +9,6 @@ export interface IAuthStore {
 export interface ILoggedInUser {
   name: string;
   email: string;
-  role: string;
-  avatar?: string
 }
 
 export interface IUserAccess {
