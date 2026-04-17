@@ -35,7 +35,7 @@ export const createServer = (): Express => {
   });
 
   app.listen(port, () => {
-    log.info(`API - Admin running on ${port}`);
+    log.info(`API - Running on ${port}`);
   });
   return app;
 };
