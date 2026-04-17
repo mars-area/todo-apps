@@ -59,8 +59,8 @@ export async function up(queryInterface: any, Sequelize: any) {
       type: Sequelize.DATE
     }
   });
-  await queryInterface.addIndex("tasks", ["userId"]);
-  await queryInterface.addIndex("tasks", ["dueDate"]);
+  await queryInterface.addIndex("tasks", ["user_id"]);
+  await queryInterface.addIndex("tasks", ["due_date"]);
   await queryInterface.addIndex("tasks", ["priority"]);
   await queryInterface.addIndex("tasks", ["status"]);
 }
