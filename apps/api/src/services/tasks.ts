@@ -17,13 +17,12 @@ export const createTasksService = ({ tasksRepo }: TasksServiceDeps) => {
       });
     },
     updateTask: async (task: { id: number; title: string; description: string; dueDate: string; priority: string; status: string; userId: number }) => {
-      const ok = await tasksRepo.update(task.id, {
+      const ok = await tasksRepo.updateTaskForUser(task.id, task.userId, {
         title: task.title,
         description: task.description,
         dueDate: new Date(task.dueDate),
         priority: task.priority,
         status: task.status,
-        userId: task.userId,
       });
       if (!ok) return null;
       return await tasksRepo.findById(task.id);

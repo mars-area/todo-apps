@@ -15,7 +15,7 @@ const listUsers = {
 
 const detailedUsers = {
   params: Joi.object({
-    uid: Joi.string().uuid().required()
+    uid: Joi.number().integer().positive().required()
   }).required()
 };
 

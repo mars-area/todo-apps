@@ -6,8 +6,15 @@ import { usersService } from "../services/index";
 
 const detailedUsers = catchAsync(async (req: ControllerRequestType, res: Response) => {
   const { uid } = req.params;
+  const targetId = Number(uid);
+  if (Number.isNaN(targetId) || targetId !== req.userId) {
+    return ErrorRes(res, {
+      error: "FORBIDDEN",
+      message: "Forbidden"
+    });
+  }
 
-  const user = await usersService.getUserDetails(uid as string);
+  const user = await usersService.getUserDetails(targetId);
   if (!user)
     return ErrorRes(res, {
       error: "NOT_FOUND",
