@@ -17,14 +17,15 @@ DB_PASS=<your_database_password>
 3. run the development workflow
 
 ```bash
-# Install dependencies
+# Install dependencies in root directory
 npm install
 
-# run migrations & seeders
+# run migrations & seeders in api directory
+cd apps/api
 npx sequelize-cli db:migrate
 npx sequelize-cli db:seed:all
 
-# run the project
+# run the project in root directory
 npm run dev
 ```
 
